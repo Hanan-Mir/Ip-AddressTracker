@@ -8,7 +8,8 @@ body{
     font-family: var(--Font-Family);
     box-sizing: border-box;
     width: 100%;
-    max-width: 1600px;
+    height: 100vh;
+    max-width: 100vw;
     margin: 0;
     padding: 0;
 }
@@ -19,6 +20,7 @@ header{
     align-items: center;
     justify-content: center;
     position: relative;
+    height: 30vh;
 }
 .background-img{
     width: 100%;
@@ -110,6 +112,65 @@ border-bottom-right-radius: 20px;
   }
   .map{
     width: 100%;
-    height: 62vh;
+    height: 80%;
     z-index: -3;
+    overflow-y: hidden;
+    margin-top: 1.5%;
   }
+  .mobile{
+    display: none;
+  }
+.desktop{
+    display: block;
+}
+  /* Media query for mobile design */
+  @media only screen and (max-width:400px){
+    .desktop{
+        display: none;
+    }
+    .mobile{
+        display: block;
+    }
+    .content-container h1{
+        font-size: 1.5rem;
+    }
+    .inputFeild{
+        width: 100%;
+    }
+    .inputFeild input{
+        font-size: 0.8rem;
+    }
+    .inputFeild .arrow-img{
+        width: 18%;
+    }
+    .informationResponse{
+        flex-direction: column;
+        top: 110%;
+        height: 310%;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0%;
+    }
+    .response{
+        width: 100%;
+        height: 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .response .name{
+        margin: 1%;
+    }
+    .response .value{
+        margin: 1%;
+    }
+    .value::before{
+        content: '';
+        height: 0;
+        width: 0;
+    }
+    .map{
+        margin-top: 10%;
+    }
+  }
+  

@@ -33,6 +33,9 @@ _renderMap(lat,lng){
         
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(myMap);
+    if(window.matchMedia("(max-width:400px)").matches){
+        myMap.setZoom(13);
+    }
 }
 return;
 }

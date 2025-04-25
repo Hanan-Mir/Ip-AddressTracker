@@ -9,7 +9,8 @@ body {
   font-family: var(--Font-Family);
   box-sizing: border-box;
   width: 100%;
-  max-width: 1600px;
+  max-width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
 }
@@ -19,6 +20,7 @@ header {
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 30vh;
   display: flex;
   position: relative;
 }
@@ -124,6 +126,73 @@ header {
 .map {
   z-index: -3;
   width: 100%;
-  height: 62vh;
+  height: 80%;
+  margin-top: 1.5%;
+  overflow-y: hidden;
+}
+
+.mobile {
+  display: none;
+}
+
+.desktop {
+  display: block;
+}
+
+@media only screen and (width <= 400px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .content-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .inputFeild {
+    width: 100%;
+  }
+
+  .inputFeild input {
+    font-size: .8rem;
+  }
+
+  .inputFeild .arrow-img {
+    width: 18%;
+  }
+
+  .informationResponse {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 310%;
+    padding: 0%;
+    top: 110%;
+  }
+
+  .response {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 5%;
+    display: flex;
+  }
+
+  .response .name, .response .value {
+    margin: 1%;
+  }
+
+  .value:before {
+    content: "";
+    width: 0;
+    height: 0;
+  }
+
+  .map {
+    margin-top: 10%;
+  }
 }
 /*# sourceMappingURL=ip-address-tracker-master.9e4c6fd2.css.map */

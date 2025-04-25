@@ -1,5 +1,6 @@
 import displayMap from "./View/displayMap";
 import * as model from "./model.js";
+import infoView from "./View/infoView.js";
 const getIpAddress=function(){
     if(displayMap._inputAddress.value){
         displayMap._ipAddress=displayMap._inputAddress.value;
@@ -11,10 +12,11 @@ let ip=getIpAddress();
 if(!ip) return;
 const data=await model.loadDeviceInfo(ip)
 displayMap._renderMap(data.latitude,data.longitude)
-
+infoView._render(data);
 }
  const init=function(){
     displayMap.getUserData(getDeviceInformation);
+   
     getDeviceInformation();
  }
  init();

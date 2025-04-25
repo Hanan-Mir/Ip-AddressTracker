@@ -671,6 +671,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _displayMap = require("./View/displayMap");
 var _displayMapDefault = parcelHelpers.interopDefault(_displayMap);
 var _modelJs = require("./model.js");
+var _infoViewJs = require("./View/infoView.js");
+var _infoViewJsDefault = parcelHelpers.interopDefault(_infoViewJs);
 const getIpAddress = function() {
     if ((0, _displayMapDefault.default)._inputAddress.value) {
         (0, _displayMapDefault.default)._ipAddress = (0, _displayMapDefault.default)._inputAddress.value;
@@ -682,6 +684,7 @@ const getDeviceInformation = async function() {
     if (!ip) return;
     const data = await _modelJs.loadDeviceInfo(ip);
     (0, _displayMapDefault.default)._renderMap(data.latitude, data.longitude);
+    (0, _infoViewJsDefault.default)._render(data);
 };
 const init = function() {
     (0, _displayMapDefault.default).getUserData(getDeviceInformation);
@@ -689,37 +692,7 @@ const init = function() {
 };
 init();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./View/displayMap":"en0Te","./model.js":"31aoC"}],"jnFvT":[function(require,module,exports,__globalThis) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"en0Te":[function(require,module,exports,__globalThis) {
+},{"./View/displayMap":"en0Te","./model.js":"31aoC","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./View/infoView.js":"hn8zd"}],"en0Te":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./view");
@@ -762,12 +735,13 @@ class DisplayMap extends (0, _viewDefault.default) {
         (0, _leafletDefault.default).tileLayer(`https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png`, {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(myMap);
+        if (window.matchMedia("(max-width:400px)").matches) myMap.setZoom(13);
     }
     return;
 }
 exports.default = new DisplayMap();
 
-},{"./view":"dgYzN","leaflet":"gzvEd","leaflet/dist/leaflet.css":"6JhOO","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../images/icon-location.svg":"5wAVl"}],"dgYzN":[function(require,module,exports,__globalThis) {
+},{"./view":"dgYzN","leaflet":"gzvEd","leaflet/dist/leaflet.css":"6JhOO","url:../images/icon-location.svg":"5wAVl","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"dgYzN":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class View {
@@ -775,10 +749,48 @@ class View {
     _inputAddress = document.querySelector('#input-ip');
     _inputEl = document.querySelector('.arrow-img');
     _ipAddress;
+    _sectionContainer = document.querySelector('.content-container');
+    _data;
+    _render(data) {
+        this._data = data;
+        let markup = this.generateMarkUp(data);
+        console.log(data);
+        this._sectionContainer.insertAdjacentHTML('beforeend', markup);
+    }
 }
 exports.default = View;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"gzvEd":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"gzvEd":[function(require,module,exports,__globalThis) {
 /* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
  * (c) 2010-2023 Vladimir Agafonkin, (c) 2010-2011 CloudMade
@@ -11399,6 +11411,38 @@ let loadDeviceInfo = async function(ipaddress) {
     return deviceData;
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["1Pb9H","kuegG"], "kuegG", "parcelRequire1541", {}, "./", "/")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"hn8zd":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("./view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _displayMap = require("./displayMap");
+var _displayMapDefault = parcelHelpers.interopDefault(_displayMap);
+class InfoView extends (0, _viewDefault.default) {
+    generateMarkUp(data) {
+        return `<section class="informationResponse">
+  <div class="ipaddress response ">
+  <h3 class="name">IP Address</h3>
+  <h2 class="value">${data.ip}</h2>
+</div>
+<div class="location response">
+  <h3 class="name">LOCATION</h3>
+  <h2 class="value">${data.location}</h2>
+</div>
+<div class="timezone response">
+  <h3 class="name">TIMEZONE</h3>
+  <h2 class="value">${data.timezone}</h2>
+</div>
+<div class="isp response">
+  <h3 class="name">ISP</h3>
+  <h2 class="value ispvalue">${data.isp}</h2>
+</div>
+
+</section`;
+    }
+}
+exports.default = new InfoView();
+
+},{"./view":"dgYzN","./displayMap":"en0Te","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["1Pb9H","kuegG"], "kuegG", "parcelRequire1541", {}, "./", "/")
 
 //# sourceMappingURL=ip-address-tracker-master.260c5ea5.js.map
